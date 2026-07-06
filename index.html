@@ -364,33 +364,143 @@
                     <button onclick="jumpToBookmark()">انتقال</button>
                     <button onclick="clearBookmark()" style="background: rgba(255,255,255,0.1);">مسح</button>
                 </div>
-            </div>
-<div class="sheikh-selector">
-    <span>🎙️</span>
-    <select id="sheikhSelect" onchange="changeSheikh()">
-        <option value="afs">مشاري العفاسي</option>
-        <option value="basit">عبد الباسط عبد الصمد (مرتل)</option>
-        <option value="maher">ماهر المعيقلي</option>
-        <option value="shuraim">سعود الشريم</option>
-        <option value="sudais">عبد الرحمن السديس</option>
-        <option value="ghamdi">سعد الغامدي</option>
-        <option value="dosari">ياسر الدوسري</option>
-        <option value="qatami">ناصر القطامي</option>
-        <option value="ajamy">أحمد العجمي</option>
-        <option value="ayyub">محمد أيوب</option>
-        <option value="shatri">أبو بكر الشاطري</option>
-        <option value="refai">هاني الرفاعي</option>
-        <option value="abbad">فارس عباد</option>
-        <option value="bukhatir">صلاح بو خاطر</option>
-        <option value="jibreel">محمد جبريل</option>
-        <option value="husary">محمود خليل الحصري</option>
-        <option value="minshawi">محمد صديق المنشاوي</option>
-        <option value="johany">عبد الله عواد الجهني</option>
-        <option value="muheisni">محمد المحيسني</option>
-        <option value="matroud">عبدالله الماطرود</option>
-    </select>
-</div>
+            </div><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مشغل القرآن الكريم</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .container {
+            background: rgba(0,0,0,0.4);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .sheikh-selector, .surah-selector {
+            margin: 15px 0;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            background: white;
+            color: #333;
+            cursor: pointer;
+        }
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+        h2 { margin: 5px 0 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📖 مشغل القرآن الكريم</h2>
+        
+        <div class="sheikh-selector">
+            <span>🎙️</span>
+            <select id="sheikhSelect" onchange="changeSheikh()">
+                <option value="afs">مشاري العفاسي</option>
+                <option value="basit">عبد الباسط عبد الصمد (مرتل)</option>
+                <option value="maher">ماهر المعيقلي</option>
+                <option value="shuraim">سعود الشريم</option>
+                <option value="sudais">عبد الرحمن السديس</option>
+                <option value="ghamdi">سعد الغامدي</option>
+                <option value="dosari">ياسر الدوسري</option>
+                <option value="qatami">ناصر القطامي</option>
+                <option value="ajamy">أحمد العجمي</option>
+                <option value="ayyub">محمد أيوب</option>
+                <option value="shatri">أبو بكر الشاطري</option>
+                <option value="refai">هاني الرفاعي</option>
+                <option value="abbad">فارس عباد</option>
+                <option value="bukhatir">صلاح بو خاطر</option>
+                <option value="jibreel">محمد جبريل</option>
+                <option value="husary">محمود خليل الحصري</option>
+                <option value="minshawi">محمد صديق المنشاوي</option>
+                <option value="johany">عبد الله عواد الجهني</option>
+                <option value="muheisni">محمد المحيسني</option>
+                <option value="matroud">عبدالله الماطرود</option>
+            </select>
+        </div>
 
+        <div class="surah-selector">
+            <span>📜</span>
+            <select id="surahSelect" onchange="playSurah()">
+                <option value="001">الفاتحة</option>
+                <option value="002">البقرة</option>
+                <option value="003">آل عمران</option>
+                <option value="036">يس</option>
+                <option value="055">الرحمن</option>
+                <option value="067">الملك</option>
+                <option value="112">الإخلاص</option>
+                <option value="113">الفلق</option>
+                <option value="114">الناس</option>
+            </select>
+        </div>
+
+        <audio id="audioPlayer" controls></audio>
+    </div>
+
+    <script>
+        // خريطة السيرفرات الصحيحة لكل قارئ (mp3quran.net)
+        const sheikhServers = {
+            "afs": "https://server8.mp3quran.net/afs/",
+            "basit": "https://server7.mp3quran.net/basit/",
+            "maher": "https://server12.mp3quran.net/maher/",
+            "shuraim": "https://server7.mp3quran.net/shur/",
+            "sudais": "https://server11.mp3quran.net/sds/",
+            "ghamdi": "https://server7.mp3quran.net/s_gmd/",
+            "dosari": "https://server11.mp3quran.net/yasser/",
+            "qatami": "https://server10.mp3quran.net/qtm/",
+            "ajamy": "https://server8.mp3quran.net/ahmad_huth/",
+            "ayyub": "https://server8.mp3quran.net/ayyub/",
+            "shatri": "https://server11.mp3quran.net/shatri/",
+            "refai": "https://server8.mp3quran.net/refaie/",
+            "abbad": "https://server8.mp3quran.net/frs_a/",
+            "bukhatir": "https://server7.mp3quran.net/bukhatir/",
+            "jibreel": "https://server8.mp3quran.net/jbrl/",
+            "husary": "https://server13.mp3quran.net/husr/",
+            "minshawi": "https://server10.mp3quran.net/minsh/",
+            "johany": "https://server13.mp3quran.net/jhn/",
+            "muheisni": "https://server12.mp3quran.net/mhsni/",
+            "matroud": "https://server12.mp3quran.net/mtrod/"
+        };
+
+        function changeSheikh() {
+            playSurah();
+        }
+
+        function playSurah() {
+            const sheikh = document.getElementById('sheikhSelect').value;
+            const surah = document.getElementById('surahSelect').value;
+            const audio = document.getElementById('audioPlayer');
+            
+            const url = sheikhServers[sheikh] + surah + ".mp3";
+            audio.src = url;
+            audio.play().catch(e => console.log("تشغيل تلقائي ممنوع:", e));
+        }
+
+        // تشغيل تلقائي عند فتح الصفحة
+        window.onload = () => playSurah();
+    </script>
+</body>
+</html>
             <div class="search-box">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="surahSearch" placeholder="ابحث عن سورة..." oninput="filterSurahs()">
