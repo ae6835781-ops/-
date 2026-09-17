@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>أَثَر | Athar</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
@@ -35,7 +35,8 @@
 --gold-bg: rgba(251,191,36,0.15);
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bottom:100px;overflow-x:hidden}
+/* تحسين المسافات لمنع التداخل في الهواتف */
+body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bottom:180px;overflow-x:hidden;min-height:100dvh;}
 .splash-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;transition:opacity .5s ease-out}
 .splash-screen.hidden{opacity:0;pointer-events:none}
 .splash-logo{font-size:4rem;margin-bottom:20px;animation:bounce 1s infinite}
@@ -102,7 +103,8 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 .dhikr-card{background:var(--card-bg);padding:18px;border-radius:14px;margin-bottom:12px;box-shadow:var(--shadow);text-align:center;border:1px solid var(--border)}
 .dhikr-text{font-size:1.1rem;font-weight:600;margin-bottom:12px;line-height:1.8}
 .dhikr-count{display:inline-block;background:var(--primary);color:#fff;padding:4px 14px;border-radius:15px;font-size:.85rem;font-weight:bold}
-.player-fixed{position:fixed;bottom:90px;left:15px;right:15px;background:var(--card-bg);padding:12px 15px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,.15);display:none;flex-direction:column;gap:10px;z-index:90;border:1px solid var(--primary);animation:slideUp .3s ease-out}
+/* ضبط مواضع العناصر الثابتة لمنع التداخل في الموبايل */
+.player-fixed{position:fixed;bottom:75px;left:15px;right:15px;background:var(--card-bg);padding:12px 15px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,.15);display:none;flex-direction:column;gap:10px;z-index:90;border:1px solid var(--primary);animation:slideUp .3s ease-out}
 .player-fixed.active{display:flex}
 .player-top{display:flex;align-items:center;gap:12px}
 .player-info{flex:1;overflow:hidden}
@@ -117,7 +119,7 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 .progress-bar{flex:1;-webkit-appearance:none;appearance:none;height:5px;background:var(--border);border-radius:3px;outline:none;cursor:pointer}
 .progress-bar::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:var(--primary);border-radius:50%;cursor:pointer}
 .progress-bar::-moz-range-thumb{width:14px;height:14px;background:var(--primary);border-radius:50%;cursor:pointer;border:none}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card-bg);display:flex;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding:8px 0;box-shadow:0 -4px 20px rgba(0,0,0,.05);z-index:100;border-top:1px solid var(--border);-webkit-overflow-scrolling:touch}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card-bg);display:flex;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding:8px 0;padding-bottom: env(safe-area-inset-bottom, 8px);box-shadow:0 -4px 20px rgba(0,0,0,.05);z-index:100;border-top:1px solid var(--border);-webkit-overflow-scrolling:touch}
 .bottom-nav::-webkit-scrollbar{display:none}
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--text-sec);font-size:.6rem;font-weight:600;transition:var(--trans);cursor:pointer;min-width:25vw;flex-shrink:0;padding:5px 0}
 .nav-item.active{color:var(--primary);transform:translateY(-3px)}
@@ -151,7 +153,7 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 .modal-content{background:var(--card-bg);padding:20px;border-radius:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;animation:fadeIn .3s ease-out;position:relative}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;border-bottom:2px solid var(--border);padding-bottom:10px;position:sticky;top:0;background:var(--card-bg);z-index:10}
 .close-modal{background:none;border:none;font-size:1.5rem;color:var(--text-sec);cursor:pointer}
-.toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%) translateY(100px);background:#1e293b;color:#fff;padding:12px 24px;border-radius:25px;font-weight:600;opacity:0;transition:all .4s ease;z-index:3000;box-shadow:0 10px 20px rgba(0,0,0,.2)}
+.toast{position:fixed;bottom:180px;left:50%;transform:translateX(-50%) translateY(100px);background:#1e293b;color:#fff;padding:12px 24px;border-radius:25px;font-weight:600;opacity:0;transition:all .4s ease;z-index:3000;box-shadow:0 10px 20px rgba(0,0,0,.2); text-align: center; width: max-content; max-width: 90%;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
@@ -225,7 +227,7 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 .angel-icon{font-size:2rem;flex-shrink:0;background:var(--gold-bg);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--gold)}
 .angel-info h3{font-size:1.05rem;font-weight:700;color:var(--primary);margin-bottom:4px}
 .angel-info p{font-size:.9rem;color:var(--text-sec);line-height:1.6}
-.whatsapp-fab{position:fixed;bottom:90px;left:20px;width:45px;height:45px;background-color:#25D366;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 12px rgba(37,211,102,0.4);z-index:95;cursor:grab;transition:opacity 0.5s ease, transform 0.2s, box-shadow 0.2s; text-decoration:none;user-select:none;touch-action:none;opacity:1; will-change: transform, left, top;}
+.whatsapp-fab{position:fixed;bottom:135px;left:20px;width:45px;height:45px;background-color:#25D366;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 12px rgba(37,211,102,0.4);z-index:95;cursor:grab;transition:opacity 0.5s ease, transform 0.2s, box-shadow 0.2s; text-decoration:none;user-select:none;touch-action:none;opacity:1; will-change: transform, left, top;}
 .whatsapp-fab.faded{opacity:0.5 !important}
 .whatsapp-fab:active{cursor:grabbing;transform:scale(0.95)}
 .whatsapp-fab.pulse{animation:pulseFab 2s infinite}
@@ -243,19 +245,25 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 /* Tutorial Styles */
 .tutorial-overlay {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px);
     z-index: 9999; display: none; opacity: 0; transition: opacity 0.4s ease;
 }
 .tutorial-overlay.active { display: block; opacity: 1; }
 .tutorial-highlight {
     position: relative; z-index: 10000 !important;
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.8), 0 0 20px rgba(13, 148, 136, 0.6);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), 0 0 25px rgba(13, 148, 136, 0.8);
     border-radius: 8px; transition: box-shadow 0.3s ease;
+    animation: pulseHighlight 1.5s infinite;
+}
+@keyframes pulseHighlight {
+    0% { box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), 0 0 15px rgba(13, 148, 136, 0.6); }
+    50% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.9), 0 0 30px rgba(13, 148, 136, 0.9); }
+    100% { box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), 0 0 15px rgba(13, 148, 136, 0.6); }
 }
 .tutorial-tooltip {
     position: absolute; z-index: 10001; background: var(--card-bg);
     color: var(--text); padding: 20px; border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 280px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4); width: 280px;
     text-align: center; border: 2px solid var(--primary);
     animation: fadeIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -446,6 +454,8 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 <div class="card" style="margin:0;border-right:3px solid var(--gold)"><strong>تذكير بالشهادتين</strong><p style="font-size:.85rem;color:var(--text-sec);margin-top:5px">"أشهد أن لا إله إلا الله وحده لا شريك له، وأشهد أن محمداً عبده ورسوله". جدد إيمانك بترديدها بقلب حاضر.</p></div>
 <div class="card" style="margin:0;border-right:3px solid var(--primary)"><strong>حان وقت ذكر الصباح</strong><p style="font-size:.85rem;color:var(--text-sec);margin-top:5px">لا تنسَ أذكار الصباح لحماية نفسك طوال يومك.</p></div>
 <div class="card" style="margin:0;border-right:3px solid var(--primary)"><strong>تذكير بحفظ المكان</strong><p style="font-size:.85rem;color:var(--text-sec);margin-top:5px">يمكنك حفظ مكان قراءتك على مستوى الآية للعودة إليه لاحقاً.</p></div>
+<hr style="border:0;border-top:1px solid var(--border);margin:10px 0;">
+<button class="tutorial-btn next" style="width:100%" onclick="startInteractiveTutorial(); toggleModal('notifModal');">🔄 إعادة الشرح التفاعلي للتطبيق</button>
 </div>
 </div>
 </div>
@@ -457,7 +467,7 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
         <p id="tutorialDesc">وصف الخطوة</p>
         <div class="tutorial-controls">
             <button class="tutorial-btn skip" onclick="endTutorial()">تخطي</button>
-            <button class="tutorial-btn next" onclick="nextTutorialStep()">التالي</button>
+            <button class="tutorial-btn next" id="tutorialNextBtn" onclick="nextTutorialStep()">التالي</button>
         </div>
         <div class="tutorial-progress" id="tutorialProgress"></div>
     </div>
@@ -1241,7 +1251,7 @@ let hasMoved=false;
 let startX,startY,initialLeft,initialTop;
 let lastInteraction=Date.now();
 let fadeCheckInterval=null;
-let rafId = null; // For smooth animation frame
+let rafId = null;
 
 function resetInteractionTimer(){
 lastInteraction=Date.now();
@@ -1285,7 +1295,7 @@ fab.style.transition='none';
 
 const handleMove=(e)=>{
 if(!isDragging) return;
-e.preventDefault(); // Prevent scrolling while dragging
+e.preventDefault();
 resetInteractionTimer();
 const clientX=e.touches?e.touches[0].clientX:e.clientX;
 const clientY=e.touches?e.touches[0].clientY:e.clientY;
@@ -1294,7 +1304,6 @@ if(Math.abs(clientX-startX)>5||Math.abs(clientY-startY)>5){
 hasMoved=true;
 }
 
-// Use requestAnimationFrame for buttery smooth 60fps movement
 if (rafId) cancelAnimationFrame(rafId);
 rafId = requestAnimationFrame(() => {
 let newLeft=initialLeft+(clientX-startX);
@@ -1328,48 +1337,64 @@ if(hasMoved){e.preventDefault();e.stopPropagation()}
 });
 startFadeTimer();
 
-/* ====== Tutorial / Onboarding System ====== */
+/* ====== Interactive Tutorial / Onboarding System ====== */
+let tutorialState = {
+    isActive: false,
+    step: 0,
+    cleanupFn: null
+};
+
 const tutorialSteps = [
     { 
         target: '#appTitleHeader', 
         title: 'مرحباً بك في تطبيق أَثَر 🕌', 
-        desc: 'تطبيقك الإسلامي الشامل. اضغط مطولاً على اسم التطبيق في الأعلى في أي وقت لإعادة هذا الشرح.', 
-        pos: 'bottom' 
+        desc: 'هذا التطبيق هو رفيقك الإسلامي الشامل. اضغط مطولاً على اسم التطبيق في الأعلى في أي وقت لإعادة هذا الشرح.', 
+        pos: 'bottom',
+        action: 'click'
     },
     { 
-        target: '.bottom-nav', 
-        title: 'شريط التنقل السفلي 📱', 
-        desc: 'تنقل بسلاسة بين الأقسام: الأحاديث، القرآن، الأذكار، الراديو، المسبحة، أسماء الله، الملائكة، ومواقيت الصلاة.', 
-        pos: 'top' 
+        target: '#hadith-card-0 .hadith-bookmark-btn', 
+        title: 'حفظ الأحاديث المفضلة 📌', 
+        desc: 'جرب الآن: اضغط على زر "حفظ الحديث" أسفل هذا الحديث ليتم حفظه والوصول إليه لاحقاً.', 
+        pos: 'top',
+        action: 'click',
+        successMsg: 'أحسنت! تم حفظ الحديث بنجاح.'
     },
     { 
-        target: '#quran-section', 
-        title: 'مصحف المدينة المتطور 📖', 
-        desc: 'استمع بتدبر مع ميزة تظليل الكلمات المتزامن مع الصوت، واحفظ مكانك بدقة متناهية للعودة لاحقاً.', 
-        pos: 'right' 
+        target: '.nav-item[onclick*="quran-section"]', 
+        title: 'الانتقال بين الأقسام 📱', 
+        desc: 'ممتاز! الآن جرب الانتقال إلى قسم "القرآن" من شريط التنقل السفلي.', 
+        pos: 'top',
+        action: 'click'
     },
     { 
-        target: '#prayer-section', 
-        title: 'مواقيت الصلاة وإنجازك اليومي ⏰', 
-        desc: 'تابع مواقيت الصلاة بدقة حسب موقعك، واستخدم قائمة الإنجاز اليومية لتحفيز نفسك على المحافظة على الصلوات.', 
-        pos: 'left' 
+        target: '#quran-container .listen-btn', 
+        title: 'الاستماع للقرآن بتدبر 🎧', 
+        desc: 'جرب تشغيل سورة الفاتحة بالضغط على أيقونة السماعة بجانبها.', 
+        pos: 'left',
+        action: 'click',
+        successMsg: 'رائع! بدأ التشغيل. يمكنك إيقافه من المشغل بالأسفل.'
     },
     { 
-        target: '#whatsappFab', 
-        title: 'دعم فني مباشر 💬', 
-        desc: 'هذه الأيقونة قابلة للسحب والإفلات في أي مكان على الشاشة لراحتك. اضغط عليها للتواصل مع المطور مباشرة.', 
-        pos: 'right' 
+        target: '.nav-item[onclick*="tasbih-section"]', 
+        title: 'المسبحة الإلكترونية 📿', 
+        desc: 'أخيراً، انتقل إلى قسم "تسبيح" وجرب الضغط على الزر الكبير للعد.', 
+        pos: 'top',
+        action: 'click'
+    },
+    { 
+        target: '.tasbih-btn', 
+        title: 'ابدأ التسبيح الآن ✨', 
+        desc: 'اضغط على الزر الكبير لتجربة العداد. يمكنك أيضاً تعيين هدف يومي.', 
+        pos: 'top',
+        action: 'click',
+        successMsg: 'مبارك! أنت الآن جاهز لاستخدام التطبيق بكفاءة.'
     }
 ];
 
-let currentTutorialStep = 0;
-
-function startTutorial() {
-    if (localStorage.getItem('athar_tutorial_seen') === 'true') {
-        showToast('أنت تعرف كل شيء عن التطبيق بالفعل! 😊');
-        return;
-    }
-    currentTutorialStep = 0;
+function startInteractiveTutorial() {
+    tutorialState.isActive = true;
+    tutorialState.step = 0;
     const overlay = document.getElementById('tutorialOverlay');
     overlay.classList.add('active');
     showTutorialStep(0);
@@ -1380,27 +1405,46 @@ function showTutorialStep(index) {
         endTutorial();
         return;
     }
-    currentTutorialStep = index;
+    tutorialState.step = index;
     const step = tutorialSteps[index];
-    const el = document.querySelector(step.target);
     
-    // Remove old highlights
+    // Clean up previous listeners
+    if (tutorialState.cleanupFn) {
+        tutorialState.cleanupFn();
+    }
+    
     document.querySelectorAll('.tutorial-highlight').forEach(e => e.classList.remove('tutorial-highlight'));
     
-    // If target is a section, switch to its tab first
-    if (el && el.classList.contains('section')) {
-        const sectionId = step.target.replace('#', '');
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach((nav, i) => {
-            if (nav.getAttribute('onclick').includes(sectionId)) {
-                switchTab(sectionId, nav);
-            }
-        });
-        // Small delay to allow tab switch animation before highlighting
-        setTimeout(() => highlightAndPosition(el, step), 300);
-    } else if (el) {
-        highlightAndPosition(el, step);
+    // If target is a section/tab, switch to it first
+    if (step.target.includes('nav-item')) {
+        const navEl = document.querySelector(step.target);
+        if(navEl) navEl.click();
     }
+    
+    setTimeout(() => {
+        const el = document.querySelector(step.target);
+        if (el) {
+            el.classList.add('tutorial-highlight');
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            highlightAndPosition(el, step);
+            
+            // Attach one-time event listener for the required action
+            const actionHandler = (e) => {
+                e.stopPropagation(); // Prevent double firing
+                if (step.successMsg) showToast(step.successMsg);
+                setTimeout(() => {
+                    nextTutorialStep();
+                }, 800);
+            };
+            
+            el.addEventListener('click', actionHandler, { once: true });
+            
+            // Store cleanup function
+            tutorialState.cleanupFn = () => {
+                el.removeEventListener('click', actionHandler);
+            };
+        }
+    }, 300);
 
     // Update text
     document.getElementById('tutorialTitle').textContent = step.title;
@@ -1411,19 +1455,23 @@ function showTutorialStep(index) {
     progressContainer.innerHTML = tutorialSteps.map((_, i) => 
         `<div class="tutorial-dot ${i === index ? 'active' : ''}"></div>`
     ).join('');
+    
+    // Hide "Next" button if we are waiting for user action, show it only for info steps
+    const nextBtn = document.getElementById('tutorialNextBtn');
+    if (step.action === 'click') {
+        nextBtn.style.display = 'none';
+    } else {
+        nextBtn.style.display = 'block';
+    }
 }
 
 function highlightAndPosition(el, step) {
-    el.classList.add('tutorial-highlight');
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    
     const tooltip = document.getElementById('tutorialTooltip');
     const rect = el.getBoundingClientRect();
     const tooltipRect = tooltip.getBoundingClientRect();
     
     let top = 0, left = 0;
     
-    // Simple positioning logic
     if (step.pos === 'bottom') {
         top = rect.bottom + 15;
         left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
@@ -1438,7 +1486,6 @@ function highlightAndPosition(el, step) {
         left = rect.left - tooltipRect.width - 15;
     }
     
-    // Boundary checks
     left = Math.max(10, Math.min(left, window.innerWidth - tooltipRect.width - 10));
     top = Math.max(10, Math.min(top, window.innerHeight - tooltipRect.height - 10));
     
@@ -1447,24 +1494,27 @@ function highlightAndPosition(el, step) {
 }
 
 function nextTutorialStep() {
-    showTutorialStep(currentTutorialStep + 1);
+    showTutorialStep(tutorialState.step + 1);
 }
 
 function endTutorial() {
+    if (tutorialState.cleanupFn) {
+        tutorialState.cleanupFn();
+    }
+    tutorialState.isActive = false;
     document.getElementById('tutorialOverlay').classList.remove('active');
     document.querySelectorAll('.tutorial-highlight').forEach(e => e.classList.remove('tutorial-highlight'));
-    localStorage.setItem('athar_tutorial_seen', 'true');
-    showToast('تم حفظ تفضيلات الشرح. يمكنك إعادة الشرح بالضغط المطول على اسم التطبيق.');
+    showToast('يمكنك إعادة الشرح في أي وقت بالضغط المطول على اسم التطبيق في الأعلى، أو من الإشعارات.');
 }
 
-// Long press listener for App Title
+// Long press listener for App Title (Always works, no localStorage blocking)
 const appTitleHeader = document.getElementById('appTitleHeader');
 let titlePressTimer;
 
 const startTitlePress = () => {
     titlePressTimer = setTimeout(() => {
-        startTutorial();
-    }, 800); // 800ms long press
+        startInteractiveTutorial();
+    }, 800);
 };
 
 const cancelTitlePress = () => {
@@ -1476,12 +1526,12 @@ appTitleHeader.addEventListener('touchstart', startTitlePress, {passive: true});
 appTitleHeader.addEventListener('mouseup', cancelTitlePress);
 appTitleHeader.addEventListener('mouseleave', cancelTitlePress);
 appTitleHeader.addEventListener('touchend', cancelTitlePress);
-/* ====== End Tutorial System ====== */
+/* ====== End Interactive Tutorial System ====== */
 
 document.addEventListener('DOMContentLoaded',()=>{
 renderHadiths();renderQuran();filterAdhkar('morning',document.querySelector('#adhkar-section .tab'));
 checkBookmark();checkHadithBookmark();renderTasbih();renderNamesOfAllah();renderAngels();initPrayerTimes();
-fetchRadioStations('', 50); // تحميل الإذاعات الحقيقية عند فتح التطبيق
+fetchRadioStations('', 50);
 });
 </script>
 </body>
