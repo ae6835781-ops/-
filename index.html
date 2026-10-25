@@ -12,12 +12,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0d9488">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="أَثَر">
 <title>أَثَر | Athar</title>
-<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiw6dUSEFSIC0gw6dUSEFSIiwic2hvcnRfbmFtZSI6IsKZw6xIQVIiLCJzdGFydF91cmwiOiIuLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmMGZkZmEiLCJ0aGVtZV9jb2xvciI6IiMwZDk0ODgiLCJpY29ucyI6W3sic3JjIjoiaHR0cHM6Ly9pLmltZ3VyLmNvbS85ZGdYR3hMLnBuZyIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9wbmcifV19">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -253,120 +248,6 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 .radio-live{color:#ef4444;font-weight:800;font-size:0.7rem}
 .radio-loading{text-align:center;padding:40px 15px;color:var(--text-sec);font-weight:600}
 .radio-loading .spinner{width:40px;height:40px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}
-
-/* PWA Install Banner */
-.pwa-install-banner {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: #fff;
-  padding: 12px 15px;
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-  z-index: 1000;
-  animation: slideUp 0.4s ease-out;
-  border-radius: 20px 20px 0 0;
-  margin: 0 10px;
-  max-width: 580px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.pwa-install-banner.active {
-  display: flex;
-}
-
-.pwa-install-content {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-}
-
-.pwa-install-icon {
-  width: 45px;
-  height: 45px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  flex-shrink: 0;
-}
-
-.pwa-install-text h4 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
-
-.pwa-install-text p {
-  font-size: 0.75rem;
-  opacity: 0.9;
-}
-
-.pwa-install-actions {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.pwa-install-btn {
-  background: #fff;
-  color: var(--primary);
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.pwa-install-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.pwa-install-btn.secondary {
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-}
-
-.pwa-install-btn.secondary:hover {
-  background: rgba(255,255,255,0.3);
-}
-
-@media (max-width: 480px) {
-  .pwa-install-banner {
-    margin: 0 5px;
-    padding: 10px 12px;
-  }
-  
-  .pwa-install-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
-  }
-  
-  .pwa-install-text h4 {
-    font-size: 0.85rem;
-  }
-  
-  .pwa-install-text p {
-    font-size: 0.7rem;
-  }
-  
-  .pwa-install-btn {
-    padding: 6px 12px;
-    font-size: 0.8rem;
-  }
-}
 </style>
 </head>
 <body>
@@ -381,7 +262,7 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 <h1><span>🕌</span> أَثَر | Athar</h1>
 <div class="header-icons">
 <button class="icon-btn" onclick="openNotifications()" title="الإشعارات">🔔<span class="badge" id="notifBadge">3</span></button>
-<button class="icon-btn" onclick="toggleTheme()" title="الوضع الداكن/الفاتح" id="themeBtn"></button>
+<button class="icon-btn" onclick="toggleTheme()" title="الوضع الداكن/الفاتح" id="themeBtn">🌙</button>
 </div>
 </header>
 <div class="container">
@@ -427,7 +308,7 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 <div id="adhkar-container"></div>
 </section>
 <section id="radio-section" class="section">
-<h2 class="section-title"> الإذاعات المباشرة</h2>
+<h2 class="section-title">📻 الإذاعات المباشرة</h2>
 <p style="font-size:.78rem;color:var(--text-sec);margin-bottom:12px;text-align:center">ابحث عن أي إذاعة في العالم - نتائج حقيقية ومباشرة</p>
 <div class="search-box">
 <span class="search-icon">🔍</span>
@@ -436,10 +317,10 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 </div>
 <div class="tabs" id="radioTabs">
 <div class="tab active" onclick="filterRadiosByCategory('all', this)">🌐 الكل</div>
-<div class="tab" onclick="filterRadiosByCategory('quran', this)"> قرآن</div>
+<div class="tab" onclick="filterRadiosByCategory('quran', this)">📖 قرآن</div>
 <div class="tab" onclick="filterRadiosByCategory('islamic', this)">🕌 إسلامية</div>
 <div class="tab" onclick="filterRadiosByCategory('news', this)">📰 أخبار</div>
-<div class="tab" onclick="filterRadiosByCategory('other', this)"> أخرى</div>
+<div class="tab" onclick="filterRadiosByCategory('other', this)">🎵 أخرى</div>
 </div>
 <div id="radio-container">
 <div class="radio-loading">
@@ -496,22 +377,6 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 <div class="prayer-list" id="prayerList"></div>
 </section>
 </div>
-
-<!-- PWA Install Banner -->
-<div class="pwa-install-banner" id="pwaInstallBanner">
-  <div class="pwa-install-content">
-    <div class="pwa-install-icon">📲</div>
-    <div class="pwa-install-text">
-      <h4>ثبّت تطبيق أَثَر</h4>
-      <p>استخدم التطبيق بدون إنترنت وبسرعة أكبر</p>
-    </div>
-  </div>
-  <div class="pwa-install-actions">
-    <button class="pwa-install-btn secondary" onclick="dismissPWAInstall()">لاحقاً</button>
-    <button class="pwa-install-btn" onclick="installPWA()">تثبيت</button>
-  </div>
-</div>
-
 <a href="https://wa.me/201102594058?text=مرحباً،%20أواجه%20مشكلة%20أو%20استفسار%20في%20تطبيق%20أثر" target="_blank" class="whatsapp-fab pulse" id="whatsappFab" title="تواصل مع المطور">💬</a>
 <div class="surah-fullscreen" id="surahFullscreen">
 <div class="surah-header">
@@ -529,8 +394,8 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 <div class="player-top">
 <div class="player-info"><div class="player-title" id="playerTitle">-</div><div class="player-sheikh" id="playerSheikh">-</div></div>
 <div class="player-controls">
-<button class="ctrl-btn small" onclick="seekAudio(-10)"></button>
-<button class="ctrl-btn" onclick="togglePlay()" id="playPauseBtn"></button>
+<button class="ctrl-btn small" onclick="seekAudio(-10)">⏪</button>
+<button class="ctrl-btn" onclick="togglePlay()" id="playPauseBtn">⏸</button>
 <button class="ctrl-btn small" onclick="seekAudio(10)">⏩</button>
 <button class="ctrl-btn close" onclick="closePlayer()">✕</button>
 </div>
@@ -547,7 +412,7 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 <div class="nav-item" onclick="switchTab('quran-section',this)"><span>📖</span><span>القرآن</span></div>
 <div class="nav-item" onclick="switchTab('adhkar-section',this)"><span>🤲</span><span>أذكار</span></div>
 <div class="nav-item" onclick="switchTab('radio-section',this)"><span>📻</span><span>راديو</span></div>
-<div class="nav-item" onclick="switchTab('tasbih-section',this)"><span></span><span>تسبيح</span></div>
+<div class="nav-item" onclick="switchTab('tasbih-section',this)"><span>📿</span><span>تسبيح</span></div>
 <div class="nav-item" onclick="switchTab('names-section',this)"><span>✨</span><span>أسماء الله</span></div>
 <div class="nav-item" onclick="switchTab('angels-section',this)"><span>👼</span><span>الملائكة</span></div>
 <div class="nav-item" onclick="switchTab('prayer-section',this)"><span>⏰</span><span>مواقيت</span></div>
@@ -564,121 +429,6 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 </div>
 </div>
 <div class="toast" id="toast"></div>
-
-<!-- Service Worker Registration -->
-<script>
-// Register Service Worker for PWA and Offline support
-if ('serviceWorker' in navigator) {
-  const swCode = `
-    const CACHE_NAME = 'athar-app-v1';
-    const urlsToCache = [
-      '/',
-      '/index.html',
-      'https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap',
-      'https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&display=swap'
-    ];
-
-    self.addEventListener('install', event => {
-      event.waitUntil(
-        caches.open(CACHE_NAME)
-          .then(cache => {
-            console.log('Opened cache');
-            return cache.addAll(urlsToCache);
-          })
-      );
-      self.skipWaiting();
-    });
-
-    self.addEventListener('fetch', event => {
-      event.respondWith(
-        caches.match(event.request)
-          .then(response => {
-            if (response) {
-              return response;
-            }
-            return fetch(event.request).then(
-              response => {
-                if(!response || response.status !== 200 || response.type !== 'basic') {
-                  return response;
-                }
-                const responseToCache = response.clone();
-                caches.open(CACHE_NAME)
-                  .then(cache => {
-                    cache.put(event.request, responseToCache);
-                  });
-                return response;
-              }
-            );
-          })
-      );
-    });
-
-    self.addEventListener('activate', event => {
-      event.waitUntil(
-        caches.keys().then(cacheNames => {
-          return Promise.all(
-            cacheNames.map(cacheName => {
-              if (cacheName !== CACHE_NAME) {
-                return caches.delete(cacheName);
-              }
-            })
-          );
-        })
-      );
-      self.clients.claim();
-    });
-  `;
-  
-  const blob = new Blob([swCode], {type: 'application/javascript'});
-  const swUrl = URL.createObjectURL(blob);
-  
-  navigator.serviceWorker.register(swUrl)
-    .then(registration => {
-      console.log('ServiceWorker registration successful');
-    })
-    .catch(err => {
-      console.log('ServiceWorker registration failed: ', err);
-    });
-}
-
-// PWA Install Prompt
-let deferredPrompt;
-let pwaDismissed = localStorage.getItem('pwa_install_dismissed');
-
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (!pwaDismissed) {
-    setTimeout(() => {
-      document.getElementById('pwaInstallBanner').classList.add('active');
-    }, 3000);
-  }
-});
-
-function installPWA() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(choiceResult => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the install prompt');
-      }
-      deferredPrompt = null;
-      document.getElementById('pwaInstallBanner').classList.remove('active');
-    });
-  }
-}
-
-function dismissPWAInstall() {
-  document.getElementById('pwaInstallBanner').classList.remove('active');
-  localStorage.setItem('pwa_install_dismissed', 'true');
-}
-
-window.addEventListener('appinstalled', () => {
-  document.getElementById('pwaInstallBanner').classList.remove('active');
-  localStorage.setItem('pwa_install_dismissed', 'true');
-});
-</script>
-
 <script>
 const hadithsData = [
 {t:"إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى.",e:"الله بيحاسبك على نيتك مش بس على شكلك الخارجي. لو نويت الخير وهمّت تعملو ومنعتك ظروف، الله يكتبهولك أجر كامل."},
@@ -979,16 +729,16 @@ const angelsData = [
 {name: "جبريل عليه السلام", duty: "موكل بالوحي، نزل بالقرآن على النبي محمد ﷺ، وأيده بالنصر.", icon: "📜"},
 {name: "ميكائيل عليه السلام", duty: "موكل بالقطر (المطر) والرزق والنبات، يسوقه حيث يشاء الله.", icon: "🌧️"},
 {name: "إسرافيل عليه السلام", duty: "موكل بالنفخ في الصور يوم القيامة لإحياء الموتى.", icon: "📯"},
-{name: "ملك الموت (عزرائيل)", duty: "موكل بقبض أرواح العباد عند انتهاء آجالهم بأمر الله.", icon: ""},
-{name: "مالك عليه السلام", duty: "خازن النار، موكل بها وبزجر أهلها، لا يعصي الله فيما أمره.", icon: ""},
-{name: "رضوان عليه السلام", duty: "خازن الجنة، موكل باستقبال أهلها وإكرامهم وإدخالهم إياها.", icon: ""},
-{name: "منكر ونكير", duty: "موكلان بفتنة العبد في قبره بعد دفنه وسؤاله عن ربه ودينه ونبيه.", icon: "️"},
+{name: "ملك الموت (عزرائيل)", duty: "موكل بقبض أرواح العباد عند انتهاء آجالهم بأمر الله.", icon: "⏳"},
+{name: "مالك عليه السلام", duty: "خازن النار، موكل بها وبزجر أهلها، لا يعصي الله فيما أمره.", icon: "🔥"},
+{name: "رضوان عليه السلام", duty: "خازن الجنة، موكل باستقبال أهلها وإكرامهم وإدخالهم إياها.", icon: "🌴"},
+{name: "منكر ونكير", duty: "موكلان بفتنة العبد في قبره بعد دفنه وسؤاله عن ربه ودينه ونبيه.", icon: "⚖️"},
 {name: "رقيب وعتيد", duty: "موكلان بكتابة أعمال العبد، رقيب عن اليمين (للحسنات) وعتيد عن الشمال (للسيات).", icon: "📝"},
-{name: "حملة العرش", duty: "ملائكة عظام يحملون عرش الرحمن ويسبحون بحمده ويستغفرون للمؤمنين.", icon: ""},
+{name: "حملة العرش", duty: "ملائكة عظام يحملون عرش الرحمن ويسبحون بحمده ويستغفرون للمؤمنين.", icon: "👑"},
 {name: "الحفظة (معقبات)", duty: "ملائكة يحفظون العبد من الأمام ومن الخلف بأمر الله من كل مكروه.", icon: "🛡️"},
 {name: "خزنة الجنة", duty: "ملائكة موكلون بخدمة أهل الجنة وتلبية احتياجاتهم.", icon: "🏰"},
 {name: "خزنة النار (الزبانية)", duty: "ملائكة غلاظ شداد موكلون بعذاب أهل النار، لا يعصون الله ما أمرهم.", icon: "⛓️"},
-{name: "موكل بالأجنة", duty: "موكل بنفخ الروح في الجنين وكتابة رزقه وأجله وعمله وشقي أو سعيد.", icon: ""},
+{name: "موكل بالأجنة", duty: "موكل بنفخ الروح في الجنين وكتابة رزقه وأجله وعمله وشقي أو سعيد.", icon: "👶"},
 {name: "موكل بالجبال", duty: "موكل بتدبير الجبال وحركتها وتثبيت الأرض بأمر الله.", icon: "⛰️"},
 {name: "السيّاحون", duty: "ملائكة يطوفون في الأرض يلتمسون مجالس الذكر ويحفظونها ويحيطون بأهلها.", icon: "🌬️"}
 ];
@@ -1017,7 +767,7 @@ function renderHadiths(){const b=JSON.parse(localStorage.getItem('athar_hadith_b
 function checkBookmark(){const b=JSON.parse(localStorage.getItem('athar_bookmark'));const bn=document.getElementById('bookmarkBanner');if(b){bn.classList.add('active');document.getElementById('bookmarkText').textContent=`سورة ${b.surahName} - آية ${b.ayahNumber}`}else bn.classList.remove('active')}
 function filterSurahs(){currentSearchQuery=document.getElementById('surahSearch').value.trim();document.getElementById('clearSearchBtn').classList.toggle('active',!!currentSearchQuery);renderQuran()}
 function clearSearch(){document.getElementById('surahSearch').value='';currentSearchQuery='';document.getElementById('clearSearchBtn').classList.remove('active');renderQuran()}
-function renderQuran(){const c=document.getElementById('quran-container');const b=JSON.parse(localStorage.getItem('athar_bookmark'));const q=currentSearchQuery.toLowerCase();const f=surahNames.map((n,i)=>({n,id:i+1})).filter(s=>s.n.includes(q));if(!f.length){c.innerHTML=`<div class="no-results"><div class="no-results-icon"></div><div>لا توجد سورة تطابق بحثك</div></div>`;return}c.innerHTML=f.map(s=>{const details=surahDetails[s.id]||{type:"-",ayahs:0};return`<div class="surah-item ${b&&b.surahId===s.id?'bookmarked':''}" onclick="readSurah(${s.id},'${s.n}')"><div class="surah-right"><div class="surah-num">${s.id}</div><div class="surah-info"><div class="surah-name">سورة ${s.n}</div><div class="surah-meta">${details.type} • ${details.ayahs} آية</div></div></div><button class="listen-btn" onclick="event.stopPropagation();playSurah(${s.id},'${s.n}')">🎧</button></div>`}).join('')}
+function renderQuran(){const c=document.getElementById('quran-container');const b=JSON.parse(localStorage.getItem('athar_bookmark'));const q=currentSearchQuery.toLowerCase();const f=surahNames.map((n,i)=>({n,id:i+1})).filter(s=>s.n.includes(q));if(!f.length){c.innerHTML=`<div class="no-results"><div class="no-results-icon">🔍</div><div>لا توجد سورة تطابق بحثك</div></div>`;return}c.innerHTML=f.map(s=>{const details=surahDetails[s.id]||{type:"-",ayahs:0};return`<div class="surah-item ${b&&b.surahId===s.id?'bookmarked':''}" onclick="readSurah(${s.id},'${s.n}')"><div class="surah-right"><div class="surah-num">${s.id}</div><div class="surah-info"><div class="surah-name">سورة ${s.n}</div><div class="surah-meta">${details.type} • ${details.ayahs} آية</div></div></div><button class="listen-btn" onclick="event.stopPropagation();playSurah(${s.id},'${s.n}')">🎧</button></div>`}).join('')}
 function stripDiacritics(s){return s.replace(/[\u064B-\u065F]/g,'').replace(/[\u0610-\u061A]/g,'').replace(/[\u0670\u06D6-\u06ED]/g,'').replace(/[\u0640]/g,'').replace(/[\u06DE]/g,'').replace(/[\u0890-\u0891\u08D3-\u08FF]/g,'').trim()}
 function normalizeArabic(t){return t.replace(/\u06CC/g,'ي').replace(/\u06A9/g,'ك').replace(/\u0649/g,'ي')}
 function cleanVerseText(v,s,n){if(s===1||s===9||n!==1)return v;const r=/^[\s\u064B-\u065F\u0610-\u061A\u0670\u06D6-\u06ED\u0640\u06DE]*ب[\s\u064B-\u065F]*س[\s\u064B-\u065F]*م[\s\u064B-\u065F]*(?:ٱ|ا|أ|آ|إ)[\s\u064B-\u065F]*ل[\s\u064B-\u065F]*ل[\s\u064B-\u065F]*ه[\s\u064B-\u065F]*(?:ٱ|ا|أ|آ|إ)[\s\u064B-\u065F]*ل[\s\u064B-\u065F]*ر[\s\u064B-\u065F]*ح[\s\u064B-\u065F]*م[\s\u064B-\u065F]*(?:ٰ|ا)?[\s\u064B-\u065F]*ن[\s\u064B-\u065F]*(?:ٱ|ا|أ|آ|إ)[\s\u064B-\u065F]*ل[\s\u064B-\u065F]*ر[\s\u064B-\u065F]*ح[\s\u064B-\u065F]*(?:ي|ى)[\s\u064B-\u065F]*م[\s\u064B-\u065F]*/;const m=v.match(r);if(m&&m[0].length>10){const res=v.substring(m[0].length).trim();if(res.length>0)return res}const cl=stripDiacritics(normalizeArabic(v));if(cl.startsWith('بسم الله الرحمن الرحيم')){let cc=0,oi=0;while(oi<v.length&&cc<19){if(!/[\s\u064B-\u065F\u0610-\u061A\u0670\u06D6-\u06ED\u0640\u06DE]/.test(v[oi]))cc++;oi++}while(oi<v.length&&/\s/.test(v[oi]))oi++;const rem=v.substring(oi).trim();if(rem.length>0)return rem}return v}
@@ -1165,8 +915,8 @@ function getTimeThemeData(){
 const h=new Date().getHours();
 const m=new Date().getMinutes();
 const t=h+m/60;
-if(t>=4 && t<5.5) return {theme:'fajr',icon:'',label:'الفجر'};
-if(t>=5.5 && t<7) return {theme:'sunrise',icon:'️',label:'الشروق'};
+if(t>=4 && t<5.5) return {theme:'fajr',icon:'🌅',label:'الفجر'};
+if(t>=5.5 && t<7) return {theme:'sunrise',icon:'☀️',label:'الشروق'};
 if(t>=7 && t<12) return {theme:'morning',icon:'🌤️',label:'صباحاً'};
 if(t>=12 && t<15) return {theme:'noon',icon:'☀️',label:'ظهراً'};
 if(t>=15 && t<17) return {theme:'afternoon',icon:'🌇',label:'عصراً'};
