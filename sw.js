@@ -4,7 +4,7 @@ const CACHE_NAME = 'athar-cache-v2';
 // 2. الملفات الأساسية التي سيتم تخزينها فوراً (بدون روابط خارجية لتجنب مشاكل CORS)
 const ASSETS_TO_CACHE = [
   '/',
-  'index.html'
+  '/index.html'
 ];
 
 // ==========================================
