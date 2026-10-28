@@ -7,22 +7,11 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+
   gtag('config', 'G-S08161C6EJ');
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<!-- PWA Meta Tags (إضافات لجعل التطبيق يعمل كتطبيق هاتف) -->
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="أثر">
-<meta name="application-name" content="أثر">
-<meta name="theme-color" content="#0d9488">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
-
 <title>أَثَر | Athar</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
@@ -1316,59 +1305,6 @@ renderHadiths();renderQuran();filterAdhkar('morning',document.querySelector('#ad
 checkBookmark();checkHadithBookmark();renderTasbih();renderNamesOfAllah();renderAngels();initPrayerTimes();
 fetchRadioStations('', 50); // تحميل الإذاعات الحقيقية عند فتح التطبيق
 });
-</script>
-
-<!-- PWA Service Worker Registration (معدل ومصحح) -->
-<script>
-let swRegistration; // تعريف المتغير لتجنب الأخطاء
-
-// تسجيل عامل الخدمة
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js')
-      .then((registration) => {
-        swRegistration = registration; // حفظ المتغير للاستخدام لاحقاً
-        console.log('تم تسجيل عامل الخدمة بنجاح:', registration);
-        
-        // التحقق من وجود تحديثات
-        registration.addEventListener('updatefound', () => {
-          const newWorker = registration.installing;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              if (confirm('تتوفر نسخة جديدة من التطبيق. هل تريد التحديث؟')) {
-                if (registration.waiting) registration.waiting.postMessage('SKIP_WAITING');
-              }
-            }
-          });
-        });
-      })
-      .catch((error) => {
-        console.log('فشل تسجيل عامل الخدمة:', error);
-      });
-  });
-}
-
-// التعامل مع حالة الاتصال (متصل / غير متصل)
-window.addEventListener('online', () => {
-  showToast('✅ تم الاتصال بالإنترنت');
-  // مزامنة البيانات عند العودة للاتصال
-  if ('serviceWorker' in navigator && swRegistration && 'sync' in swRegistration) {
-    swRegistration.sync.register('sync-prayer-times');
-  }
-});
-
-window.addEventListener('offline', () => {
-  showToast('⚠️ أنت تعمل الآن بدون إنترنت');
-});
-
-// التعامل مع رسالة تخطي الانتظار لتحديث التطبيق
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.addEventListener('message', (event) => {
-    if (event.data === 'SKIP_WAITING') {
-      window.location.reload();
-    }
-  });
-}
 </script>
 </body>
 </html>
