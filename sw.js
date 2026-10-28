@@ -1,7 +1,7 @@
 const CACHE_NAME = 'athar-cache-v1';
 const ASSETS_TO_CACHE = [
   'index.html',
-  '/',
+  '',
   'https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap',
   'https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&display=swap'
 ];
