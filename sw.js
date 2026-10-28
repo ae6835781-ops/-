@@ -1,27 +1,37 @@
-const CACHE_NAME = 'athar-cache-v1';
+// 1. تعريف اسم الكاش (تم تغيير الإصدار إلى v2 لضمان التحديث)
+const CACHE_NAME = 'athar-cache-v2';
+
+// 2. الملفات الأساسية التي سيتم تخزينها فوراً (بدون روابط خارجية لتجنب مشاكل CORS)
 const ASSETS_TO_CACHE = [
-  'index.html',
-  '',
-  'https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap',
-  'https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&display=swap'
+  '/',
+  '/index.html'
 ];
 
-// 1. تثبيت عامل الخدمة وحفظ الملفات الأساسية
+// ==========================================
+// 1. حدث التثبيت (Install): تخزين الملفات الأساسية
+// ==========================================
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+      // نستخدم catch لمنع فشل التثبيت بالكامل إذا كانت هناك مشكلة في ملف واحد
+      return cache.addAll(ASSETS_TO_CACHE).catch((err) => {
+        console.warn('تنبيه: فشل في تخزين بعض الملفات مسبقاً:', err);
+      });
     })
   );
+  // تفعيل عامل الخدمة فوراً دون انتظار إغلاق الصفحة
   self.skipWaiting();
 });
 
-// 2. تنظيف ذاكرات التخزين المؤقت القديمة عند التحديث
+// ==========================================
+// 2. حدث التنشيط (Activate): تنظيف الكاش القديم
+// ==========================================
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
+          // حذف أي كاش لا يحمل الاسم الحالي
           if (cacheName !== CACHE_NAME) {
             return caches.delete(cacheName);
           }
@@ -29,34 +39,48 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
+  // السيطرة على جميع صفحات العميل فوراً
   self.clients.claim();
 });
 
-// 3. اعتراض طلبات الشبكة لتقديم النسخة المحفوظة عند انقطاع الإنترنت
+// ==========================================
+// 3. حدث الجلب (Fetch): تقديم المحتوى من الكاش أو الشبكة
+// ==========================================
 self.addEventListener('fetch', (event) => {
-  // للملاحة (صفحات HTML)، استخدم الذاكرة أولاً ثم الشبكة
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
-      caches.match(event.request).then((response) => {
-        return response || fetch(event.request).catch(() => caches.match('/index.html'));
-      })
-    );
-    return;
-  }
+  // تجاهل أي طلبات ليست من نوع http أو https (مثل chrome-extension)
+  if (!event.request.url.startsWith('http')) return;
 
-  // لباقي الطلبات (مثل الخطوط)، استخدم الذاكرة أولاً
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request).then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
-          });
+    caches.match(event.request).then((cachedResponse) => {
+      // إذا كان الملف موجوداً في الكاش، أرجعه فوراً (أسرع وأوفلاين)
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      // إذا لم يكن موجوداً، اطلبه من الشبكة
+      return fetch(event.request).then((networkResponse) => {
+        // تحقق من أن الاستجابة ناجحة قبل تخزينها
+        if (!networkResponse || networkResponse.status !== 200) {
+          return networkResponse;
         }
+
+        // تخزين الاستجابة الجديدة في الكاش للاستخدام المستقبلي
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
+
         return networkResponse;
       }).catch(() => {
-        // في حال فشل الطلب (أوفلاين)، التطبيق الأصلي يتعامل مع ذلك بالفعل عبر رسائل الخطأ الودودة
+        // ==========================================
+        // خطة الطوارئ عند انقطاع الإنترنت تماماً
+        // ==========================================
+        if (event.request.mode === 'navigate') {
+          // إذا كان المستخدم يحاول فتح صفحة، أرجع الصفحة الرئيسية
+          return caches.match('/index.html');
+        }
+        // للصور أو الخطوط أو البيانات، أرجع استجابة فارغة لتجنب تحطيم التطبيق
+        return new Response('', { status: 408, statusText: 'أنت غير متصل بالإنترنت' });
       });
     })
   );
