@@ -1,11 +1,11 @@
-const CACHE_NAME = 'athar-cache-v6'; // تم التحديث إلى v6
+const CACHE_NAME = 'athar-cache-v6';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/manifest.json'
 ];
 
-// تثبيت Service Worker الجديد
+// تثبيت Service Worker
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -16,7 +16,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// تنشيط Service Worker وحذف الكاش القديم فوراً
+// تنشيط Service Worker وحذف الكاش القديم
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
