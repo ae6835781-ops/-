@@ -1,75 +1,57 @@
-const CACHE_NAME = 'athar-app-v2';
+const CACHE_NAME = 'athar-final-v8';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon-192x192.png',
-  '/icon-512x512.png',
-  '/background.jpg'
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192x192.png',
+  './icon-512x512.png'
 ];
 
-// تثبيت Service Worker وتخزين الملفات
-self.addEventListener('install', event => {
+// تثبيت: حفظ كل الملفات
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('فتح الكاش وتخزين الملفات');
-        return cache.addAll(urlsToCache);
-      })
-      .catch(err => console.log('فشل التخزين:', err))
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
+    })
   );
   self.skipWaiting();
 });
 
-// تفعيل Service Worker وحذف الكاش القديم
-self.addEventListener('activate', event => {
+// تنشيط: حذف الكاش القديم
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then((names) => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('حذف الكاش القديم:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
+        names.filter(n => n !== CACHE_NAME).map(n => caches.delete(n))
       );
     })
   );
   self.clients.claim();
 });
 
-// الاستجابة بالملفات المخزنة عند عدم وجود إنترنت
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request)
-          .then(response => {
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-            return response;
-          })
-          .catch(() => {
-            if (event.request.destination === 'document') {
-              return caches.match('/index.html');
-            }
-          });
-      })
-  );
-});
+// ⭐⭐⭐ الحل الجذري هنا: الكاش أولاً للتنقل ⭐⭐⭐
+self.addEventListener('fetch', (event) => {
+  const request = event.request;
 
-// الاستماع لرسالة التحديث
-self.addEventListener('message', event => {
-  if (event.data && event.data.action === 'skipWaiting') {
-    self.skipWaiting();
+  // إذا كان طلب تنقل (فتح التطبيق من الأيقونة)
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      caches.match('./index.html').then((cached) => {
+        // أعد index.html من الكاش فوراً (حتى لو الإنترنت موجود)
+        return cached || fetch(request);
+      })
+    );
+    return;
   }
+
+  // لباقي الطلبات: الكاش أولاً، ثم الشبكة
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      return cached || fetch(request).then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+        return response;
+      });
+    })
+  );
 });
