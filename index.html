@@ -11,7 +11,6 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<!-- ===== إضافات PWA الجديدة (لا تحذفها) ===== -->
 <title>أَثَر | Athar</title>
 <meta name="theme-color" content="#000000">
 <meta name="description" content="تطبيق أَثَر الإسلامي - قرآن، أحاديث، أذكار، ومواقيت صلاة">
@@ -20,12 +19,10 @@
 <meta name="apple-mobile-web-app-title" content="أَثَر | Athar">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192x192.png">
-<!-- ========================================== -->
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* تم عكس الألوان ليصبح الأسود هو الافتراضي */
 :root {
   --primary: #14b8a6;
   --primary-dark: #0d9488;
@@ -54,7 +51,31 @@
   --gold-bg: rgba(245,158,11,0.08);
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bottom:100px;overflow-x:hidden}
+
+/* ====== خلفية التطبيق بالصورة ====== */
+body {
+  background-color: var(--bg);
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.88)),
+    url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: var(--text);
+  transition: var(--trans);
+  padding-bottom: 100px;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+.light-mode body,
+body.light-mode {
+  background-image: 
+    linear-gradient(rgba(240, 253, 250, 0.88), rgba(240, 253, 250, 0.92)),
+    url('background.jpg');
+}
+/* ========================================== */
+
 .splash-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#000000,#111111);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;transition:opacity .5s ease-out}
 .splash-screen.hidden{opacity:0;pointer-events:none}
 .splash-logo{font-size:4rem;margin-bottom:20px;animation:bounce 1s infinite}
@@ -256,6 +277,49 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 .radio-live{color:#ef4444;font-weight:800;font-size:0.7rem}
 .radio-loading{text-align:center;padding:40px 15px;color:var(--text-sec);font-weight:600}
 .radio-loading .spinner{width:40px;height:40px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}
+
+/* ====== تنسيقات البوصلة (مُصلحة ومُبسطة) ====== */
+.qibla-container { text-align: center; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+.qibla-compass {
+    width: 280px; height: 280px; border-radius: 50%;
+    background: var(--card-bg); border: 4px solid var(--primary);
+    position: relative; margin: 20px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.2);
+    transition: transform 0.15s ease-out;
+}
+.compass-labels span { 
+    position: absolute; font-weight: 800; color: var(--text-sec); font-size: 1rem; 
+}
+.label-n { top: 10px; left: 50%; transform: translateX(-50%); color: #ef4444; font-size: 1.2rem; }
+.label-s { bottom: 10px; left: 50%; transform: translateX(-50%); }
+.label-e { right: 12px; top: 50%; transform: translateY(-50%); }
+.label-w { left: 12px; top: 50%; transform: translateY(-50%); }
+.compass-needle {
+    position: absolute; top: 50%; left: 50%; width: 4px; height: 40%;
+    background: linear-gradient(to top, transparent 0%, #ef4444 100%);
+    transform-origin: bottom center; transform: translate(-50%, -100%);
+    border-radius: 2px 2px 0 0; z-index: 2;
+}
+.compass-center-dot {
+    position: absolute; top: 50%; left: 50%; width: 16px; height: 16px;
+    background: var(--text); border: 3px solid var(--primary);
+    border-radius: 50%; transform: translate(-50%, -50%); z-index: 5;
+}
+.kaaba-icon {
+    position: absolute; top: 12px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.2rem; z-index: 4;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+    line-height: 1;
+}
+.qibla-info { 
+    font-size: 1.05rem; font-weight: 700; color: var(--primary); 
+    margin-top: 15px; background: var(--gold-bg); padding: 10px 20px; 
+    border-radius: 20px; border: 1px solid var(--gold);
+    text-align: center;
+}
+.qibla-note { font-size: 0.8rem; color: var(--text-sec); margin-top: 10px; text-align: center; }
+/* ========================================== */
 </style>
 </head>
 <body>
@@ -384,6 +448,28 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 <h3 style="margin-bottom:15px;font-size:1.1rem;color:var(--primary)">✅ قائمة الإنجاز اليومية</h3>
 <div class="prayer-list" id="prayerList"></div>
 </section>
+
+<!-- ====== قسم البوصلة ====== -->
+<section id="qibla-section" class="section">
+    <h2 class="section-title">🧭 اتجاه القبلة</h2>
+    <div class="qibla-container">
+        <div class="qibla-compass" id="qiblaCompass">
+            <div class="compass-labels">
+                <span class="label-n">شمال</span>
+                <span class="label-e">شرق</span>
+                <span class="label-s">جنوب</span>
+                <span class="label-w">غرب</span>
+            </div>
+            <div class="compass-needle"></div>
+            <div class="compass-center-dot"></div>
+            <div class="kaaba-icon" id="kaabaIcon">🕋</div>
+        </div>
+        <div class="qibla-info" id="qiblaInfo">جاري تحديد الموقع والاتجاه...</div>
+        <p class="qibla-note">💡 امسك الهاتف بشكل مسطح، وستدور البوصلة تلقائياً مع حركة الهاتف.</p>
+    </div>
+</section>
+<!-- ========================================== -->
+
 </div>
 <a href="https://wa.me/201102594058?text=مرحباً،%20أواجه%20مشكلة%20أو%20استفسار%20في%20تطبيق%20أثر" target="_blank" class="whatsapp-fab pulse" id="whatsappFab" title="تواصل مع المطور">💬</a>
 <div class="surah-fullscreen" id="surahFullscreen">
@@ -424,6 +510,7 @@ body{background:var(--bg);color:var(--text);transition:var(--trans);padding-bott
 <div class="nav-item" onclick="switchTab('names-section',this)"><span>✨</span><span>أسماء الله</span></div>
 <div class="nav-item" onclick="switchTab('angels-section',this)"><span>👼</span><span>الملائكة</span></div>
 <div class="nav-item" onclick="switchTab('prayer-section',this)"><span>⏰</span><span>مواقيت</span></div>
+<div class="nav-item" onclick="switchTab('qibla-section',this); setTimeout(initQiblaCompass, 300);"><span>🧭</span><span>البوصلة</span></div>
 </nav>
 <div class="footer">Developed by Ahmed Emad Farhoud © 2026</div>
 <div class="modal" id="notifModal">
@@ -451,7 +538,6 @@ let currentSurahId=null,currentSurahName='',currentAyahNumber=null,currentSearch
 let currentVerseTimings=[],wordHighlightInterval=null,verseTimingsCache={},isAudioLoaded=false;
 window.addEventListener('load',()=>setTimeout(()=>document.getElementById('splashScreen').classList.add('hidden'),2500));
 
-// تم تعديل دالة تبديل الوضع ليتوافق مع الأسود كافتراضي
 function toggleTheme(){
   document.body.classList.toggle('light-mode');
   const isLight = document.body.classList.contains('light-mode');
@@ -459,7 +545,6 @@ function toggleTheme(){
   localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
 
-// التطبيق يبدأ بالوضع الداكن افتراضياً، إلا إذا اختار المستخدم الفاتح سابقاً
 if(localStorage.getItem('theme') === 'light'){
   document.body.classList.add('light-mode');
   document.getElementById('themeBtn').textContent = '🌙';
@@ -553,9 +638,108 @@ function clearRadioSearch() {document.getElementById('radioSearch').value = '';d
 function filterRadiosByCategory(cat, el) {currentRadioCategory = cat;document.querySelectorAll('#radioTabs .tab').forEach(t => t.classList.remove('active'));el.classList.add('active');renderRadios();}
 function playRadio(name, url) {audioEl.src = url;document.getElementById('playerTitle').textContent = `📻 ${name}`;document.getElementById('playerSheikh').textContent = 'إذاعة مباشرة';playerUI.classList.add('active');audioEl.play().then(() => {isPlaying = true;playPauseBtn.textContent = '⏸';progressBar.value = 0;currentTimeEl.textContent = 'مباشر';durationTimeEl.textContent = '∞';stopWordHighlight();showToast('▶️ جاري تشغيل الإذاعة...');}).catch(err => {console.error(err);showToast('⚠️ تعذر تشغيل الإذاعة - جرب واحدة أخرى');});}
 const fab=document.getElementById('whatsappFab');let isDragging=false;let hasMoved=false;let startX,startY,initialLeft,initialTop;let lastInteraction=Date.now();let fadeCheckInterval=null;function resetInteractionTimer(){lastInteraction=Date.now();if(fab.classList.contains('faded')){fab.classList.remove('faded');fab.classList.add('pulse');}}function startFadeTimer(){if(fadeCheckInterval) clearInterval(fadeCheckInterval);fadeCheckInterval=setInterval(()=>{if(!isDragging && Date.now()-lastInteraction>=3000){fab.classList.add('faded');fab.classList.remove('pulse');}},500);}['mousedown','touchstart','click','mousemove'].forEach(ev=>{window.addEventListener(ev,resetInteractionTimer,{passive:true});});let fabMoveThrottle=null;window.addEventListener('mousemove',()=>{if(fabMoveThrottle) return;fabMoveThrottle=setTimeout(()=>{fabMoveThrottle=null},100);resetInteractionTimer();});const handleStart=(e)=>{isDragging=true;hasMoved=false;resetInteractionTimer();const clientX=e.touches?e.touches[0].clientX:e.clientX;const clientY=e.touches?e.touches[0].clientY:e.clientY;startX=clientX;startY=clientY;const rect=fab.getBoundingClientRect();initialLeft=rect.left;initialTop=rect.top;fab.style.transition='none';};const handleMove=(e)=>{if(!isDragging) return;resetInteractionTimer();const clientX=e.touches?e.touches[0].clientX:e.clientX;const clientY=e.touches?e.touches[0].clientY:e.clientY;if(Math.abs(clientX-startX)>5||Math.abs(clientY-startY)>5){hasMoved=true;e.preventDefault();}let newLeft=initialLeft+(clientX-startX);let newTop=initialTop+(clientY-startY);const maxX=window.innerWidth-fab.offsetWidth;const maxY=window.innerHeight-fab.offsetHeight-70;newLeft=Math.max(10,Math.min(newLeft,maxX));newTop=Math.max(10,Math.min(newTop,maxY));fab.style.left=`${newLeft}px`;fab.style.top=`${newTop}px`;fab.style.bottom='auto';};const handleEnd=()=>{isDragging=false;fab.style.transition='opacity 0.5s ease, transform 0.2s, box-shadow 0.2s';resetInteractionTimer();};fab.addEventListener('mousedown',handleStart);fab.addEventListener('touchstart',handleStart,{passive:false});window.addEventListener('mousemove',handleMove);window.addEventListener('touchmove',handleMove,{passive:false});window.addEventListener('mouseup',handleEnd);window.addEventListener('touchend',handleEnd);fab.addEventListener('click',(e)=>{resetInteractionTimer();if(hasMoved){e.preventDefault();e.stopPropagation()}});startFadeTimer();
+
+// ====== كود البوصلة المُصلَح ======
+let qiblaAngle = 0;
+let currentHeading = 0;
+let isQiblaActive = false;
+let orientationHandlerAttached = false;
+
+const MECCA_LAT = 21.4225;
+const MECCA_LON = 39.8262;
+
+function calculateQibla(lat, lon) {
+    const phiK = MECCA_LAT * Math.PI / 180.0;
+    const lambdaK = MECCA_LON * Math.PI / 180.0;
+    const phi = lat * Math.PI / 180.0;
+    const lambda = lon * Math.PI / 180.0;
+    const y = Math.sin(lambdaK - lambda);
+    const x = Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda);
+    let qibla = Math.atan2(y, x) * 180.0 / Math.PI;
+    return (qibla + 360) % 360;
+}
+
+function initQiblaCompass() {
+    const info = document.getElementById('qiblaInfo');
+    if (!info) return;
+    info.textContent = 'جاري تحديد الموقع الجغرافي...';
+    info.style.background = 'var(--gold-bg)';
+
+    if (!navigator.geolocation) {
+        info.textContent = '⚠️ متصفحك لا يدعم تحديد الموقع الجغرافي.';
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        qiblaAngle = calculateQibla(lat, lon);
+        info.textContent = `✅ اتجاه القبلة: ${Math.round(qiblaAngle)}° من الشمال`;
+        startOrientationListener();
+        isQiblaActive = true;
+    }, (err) => {
+        info.textContent = '⚠️ تعذر تحديد الموقع. يرجى السماح بالوصول للموقع.';
+    }, { enableHighAccuracy: true, timeout: 10000 });
+}
+
+function startOrientationListener() {
+    if (orientationHandlerAttached) return;
+    
+    // محاولة طلب الإذن للآيفون (iOS 13+)
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission().then(response => {
+            if (response === 'granted') {
+                attachOrientationHandlers();
+            } else {
+                const info = document.getElementById('qiblaInfo');
+                if (info) info.textContent = '⚠️ تم رفض إذن البوصلة. يرجى السماح من إعدادات المتصفح.';
+            }
+        }).catch(err => {
+            console.warn('Permission error:', err);
+            attachOrientationHandlers();
+        });
+    } else {
+        attachOrientationHandlers();
+    }
+}
+
+function attachOrientationHandlers() {
+    if (orientationHandlerAttached) return;
+    window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+    window.addEventListener('deviceorientation', handleOrientation, true);
+    orientationHandlerAttached = true;
+}
+
+function handleOrientation(event) {
+    let heading = null;
+    
+    // iOS Safari
+    if (event.webkitCompassHeading !== undefined && event.webkitCompassHeading !== null) {
+        heading = event.webkitCompassHeading;
+    }
+    // Android
+    else if (event.alpha !== null) {
+        if (event.absolute) {
+            heading = 360 - event.alpha;
+        } else {
+            heading = 360 - event.alpha;
+        }
+    }
+    
+    if (heading === null || isNaN(heading)) return;
+    
+    currentHeading = heading;
+    const compass = document.getElementById('qiblaCompass');
+    if (!compass) return;
+
+    // البوصلة تدور بحيث تكون الكعبة (في الأعلى) في اتجاه القبلة
+    const rotation = qiblaAngle - currentHeading;
+    compass.style.transform = `rotate(${rotation}deg)`;
+}
+// ==========================================
+
 document.addEventListener('DOMContentLoaded',()=>{renderHadiths();renderQuran();filterAdhkar('morning',document.querySelector('#adhkar-section .tab'));checkBookmark();checkHadithBookmark();renderTasbih();renderNamesOfAllah();renderAngels();initPrayerTimes();fetchRadioStations('', 50);
 
-// ====== إضافة تسجيل Service Worker لتفعيل الـ PWA والعمل أوفلاين ======
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
@@ -563,25 +747,18 @@ if ('serviceWorker' in navigator) {
       .catch(error => console.log('فشل تسجيل عامل الخدمة:', error));
   });
 }
-// ========================================================================
-// ====== كود التحديث التلقائي للـ Service Worker ======
+
 if ('serviceWorker' in navigator) {
-  // تسجيل Service Worker
   navigator.serviceWorker.register('/sw.js')
     .then(registration => {
       console.log('تم تسجيل Service Worker:', registration.scope);
-      
-      // التحقق من وجود تحديثات كل ساعة
       setInterval(() => {
         registration.update();
-      }, 60 * 60 * 1000); // كل ساعة
-      
-      // الاستماع للتحديثات
+      }, 60 * 60 * 1000);
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
         newWorker.addEventListener('statechange', () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            // يوجد تحديث جديد - اسأل المستخدم
             if (confirm('🎉 يوجد تحديث جديد للتطبيق! هل تريد التحديث الآن؟')) {
               newWorker.postMessage({ action: 'skipWaiting' });
               window.location.reload();
@@ -594,14 +771,12 @@ if ('serviceWorker' in navigator) {
       console.log('فشل تسجيل Service Worker:', error);
     });
   
-  // الاستماع لرسائل من Service Worker
   navigator.serviceWorker.addEventListener('message', event => {
     if (event.data.action === 'reload') {
       window.location.reload();
     }
   });
 }
-// ==================================================
 });
 </script>
 </body>
