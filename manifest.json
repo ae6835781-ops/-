@@ -1,8 +1,9 @@
 {
   "name": "أَثَر | Athar",
   "short_name": "أَثَر | Athar",
-  "description": "تطبيق أَثَر الإسلامي - قرآن، أحاديث، أذكار، ومواقيت صلاة",
-  "start_url": "/index.html",
+  "description": "تطبيق أَثَر الإسلامي",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
@@ -10,17 +11,7 @@
   "lang": "ar",
   "dir": "rtl",
   "icons": [
-    {
-      "src": "icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    { "src": "./icon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]
 }
